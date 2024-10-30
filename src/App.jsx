@@ -14,21 +14,34 @@ const App = () => {
 
   useEffect(() => {
     const loadExcel = async () => {
-      const response = await fetch("/suarez.xlsx"); // Ensure the path is correct
-      const blob = await response.blob();
-      const fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(blob);
-      fileReader.onload = (e) => {
-        const ab = e.target.result;
-        const wb = XLSX.read(ab, { type: "array" });
-        const ws = wb.Sheets[wb.SheetNames[0]];
-        const jsonData = XLSX.utils.sheet_to_json(ws);
-        setData(jsonData);
-        setLoading(false); // Set loading to false after data is loaded
-      };
+      try {
+        const XLSX = await import("xlsx"); // Carga dinámica
+        const response = await fetch("/suarez.xlsx");
+
+        // Verifica si la respuesta fue exitosa
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(blob);
+        fileReader.onload = (e) => {
+          const ab = e.target.result;
+          const wb = XLSX.read(ab, { type: "array" });
+          const ws = wb.Sheets[wb.SheetNames[0]];
+          const jsonData = XLSX.utils.sheet_to_json(ws);
+          setData(jsonData);
+          setLoading(false);
+        };
+      } catch (error) {
+        console.error("Error loading Excel file:", error);
+        setLoading(false); // Asegúrate de cambiar el estado de loading en caso de error
+      }
     };
     loadExcel();
   }, []);
+
 
   const handleSearch = async ({ nombre, apellido, dni }) => {
     const filteredResults = data.filter((item) => {
