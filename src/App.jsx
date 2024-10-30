@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import XLSX from "xlsx";
+import * as XLSX from 'xlsx';
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import ResultsTable from "./components/ResultsTable";
