@@ -3,8 +3,8 @@ body {
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center; /* Centrar horizontalmente el contenido */
-  align-items: center;     /* Centrar verticalmente el contenido */
-  height: 100vh;          /* Asegurar que el cuerpo ocupe toda la altura de la ventana */
+    height: auto;
+  width: 100%;        /* Asegurar que el cuerpo ocupe toda la altura de la ventana */
   margin: 0;              /* Eliminar márgenes por defecto */
 }
 
