@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx/dist/xlsx.full.min.js'; // Asegúrate de usar la ruta correcta
+
 import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import ResultsTable from "./components/ResultsTable";
